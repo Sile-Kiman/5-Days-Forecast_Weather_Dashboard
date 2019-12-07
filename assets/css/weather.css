@@ -1,0 +1,69 @@
+
+.navbar{
+    
+    color:white!important;
+    align-content: center!important;
+}
+
+.daily{
+
+    display: inline;
+}
+ 
+.uv-index{
+    padding-right: 15px;
+    border-radius: 5px;
+    background: red;
+    display:inline-block;
+
+}
+
+.col-sm-4{
+    background:grey;
+      
+}
+ .col-2{
+    color: white;
+    text-align: center;
+     
+} 
+ 
+.container{
+    margin: 0px;
+    width: 100%;
+    padding-bottom: 100%;
+      
+}
+
+button{
+    padding-bottom: 5Px;
+    padding-left: 10px;
+    background: mediumblue;
+
+}
+#search{
+   font-size: large; 
+   text-align: center!important;
+   color: white;
+
+}
+input[type=text]{
+
+    padding-left: 30%;
+    padding-bottom: 5Px; 
+}
+
+.city{
+    margin-top:5px;
+}
+  .history{
+     padding-bottom: 100%;
+ }
+  
+ /* .daily{
+     display: none;
+ }
+ .currentForcast{
+    display: none;
+ }
+  */
