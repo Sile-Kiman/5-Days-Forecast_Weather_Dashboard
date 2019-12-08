@@ -9,13 +9,22 @@
 
 //Declare some gobal variables
 var currentWeather = document.querySelector(".currentForecast");
-var dailyContainer =document.querySelector(".col-2");
+var dailyContainer1 = document.querySelector("#day1");
+var dailyContainer2 = document.querySelector("#day2");
+var dailyContainer3 = document.querySelector("#day3");
+var dailyContainer4 = document.querySelector("#day4");
+var dailyContainer5 = document.querySelector("#day5");
+//console.log("all days:", dailyContainer)
 var h5Element = document.querySelector("#days");
- 
+
 var searchbtn = document.querySelector("button");
 var searchVal = "";
 
- 
+// dailyContainer.forEach(function() {
+//     dailyContainer.innerHTML="";
+
+// });
+
 //add Event Listner to grab the search result on click
 searchbtn.addEventListener("click", function (event) {
     event.preventDefault();
@@ -38,13 +47,17 @@ searchbtn.addEventListener("click", function (event) {
     }
     //clearing containers after every append. 
     currentWeather.innerHTML = "";
-    dailyContainer.innerHTML="";
-    h5Element.innerHTML="";
+    dailyContainer1.innerHTML = "";
+    dailyContainer2.innerHTML = "";
+    dailyContainer3.innerHTML = "";
+    dailyContainer4.innerHTML = "";
+    dailyContainer5.innerHTML = "";
     //This function also performs the function that dispalay all the weather conditions
     retrieveCurrentWeatherAPI(searchVal)
-     
-    //calling day1 forecast
+    
+    //Displaying all Five days forecast in this functions
     FiveDaysForecastAPI(searchVal)
+     
 
 });
 
@@ -212,7 +225,7 @@ function retrieveUVInexAPI(Lat, Long) {
 
             //prepend all the city weather information to the div main container
             $(".currentForecast").append("UV Index:  ", Index);
-             
+
         })
 }
 
@@ -224,10 +237,9 @@ function FiveDaysForecastAPI(searchVal) {
     var currentTime = moment().format("H");
     // This is my API key
     var APIKey = "eeab2a767f4b39347cacd521da7d158c";
-      
+
     // Here I'm building the URL we need to query the database
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchVal + ",us" + "&appid=" + APIKey;
-
 
 
     // Here I'm running   AJAX call to the OpenWeatherMap API
@@ -304,12 +316,10 @@ function FiveDaysForecastAPI(searchVal) {
             //Set date variable and content 
             var Date1 = response.list[3].dt_txt
             date1 = moment(Date1).format('L');
-            
-            //Create a new Div and set its attribute to append all the weather items   
-            ///var dailyHeader = $(".daily");
-        
+
+    
             //create another div to hold all the 5 days forcast
-            //var daysEl = $("#day1");
+         
             $("#day1").attr("style", "color: red")
             $("#day1").attr("style", "background: royalblue")
             $("#day1").css("border", "0.5px solid gray ");
@@ -319,11 +329,8 @@ function FiveDaysForecastAPI(searchVal) {
 
 
             //display the City and date in h5 tag appended to the div container
-            //var h5El = $("<h5>");
-            //h5El.addClass("days");
-            //h5El.attr("margin", "10px")
             $("#days").text("5 Days Forecast: ");
-            //$(".five-days").prepend(h5El);
+
 
             // //display the day 1 in a h6  tag appended to the div col-2
             var d1El = $("<h6>");
@@ -344,7 +351,427 @@ function FiveDaysForecastAPI(searchVal) {
             var Humidity = $("<p>");
             Humidity.text("Humidity: " + humidity + " %")
             $("#day1").append(Humidity);
-      
+
+
+
+            // ################################Second Day Forecast######################
+
+            //set weather condition variable
+            var weatherCondition = response.list[10].weather[0].main;
+
+            //create an image element to append the icons
+            var image = $("<img>");
+
+
+            var imageUrl = "http://openweathermap.org/img/wn/13d.png";
+
+            //Set conditional statement to display the weather icon during snow time 
+            if (weatherCondition !== "Snow") {
+
+                //Set conditional statement to display the weather icon during day time 
+                if (currentTime <= 17) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02d.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10d.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01d.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50d.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11d.png";
+                            break;
+
+                    }
+                } else if (currentTime >= 18) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02n.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10n.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01n.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50n.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11n.png";
+                            break;
+                    }
+
+                }
+                image.attr("src", imageUrl);
+            }
+
+            // //Convert the temparature into F
+            var tempF = (response.list[10].main.temp - 273.15) * 1.80 + 32;
+            //truncate it to 2 digits
+            var temparature = tempF.toFixed(2);
+            //Set humidity variable and content
+            var humidity = response.list[10].main.humidity;
+
+            //Set date variable and content 
+            var Date1 = response.list[10].dt_txt
+            date1 = moment(Date1).format('L');
+
+            //Create a new Div and set its attribute to append all the weather items   
+            ///var dailyHeader = $(".daily");
+
+
+            //create another div to hold all the 5 days forcast
+            //var daysEl = $("#day1");
+            $("#day2").attr("style", "color: red")
+            $("#day2").attr("style", "background: royalblue")
+            $("#day2").css("border", "0.5px solid gray ");
+            $("#day2").css("margin", "5px");
+            $("#day2").css("padding", "5px");
+            $("#day2").css("border-radius", "5px")
+
+
+            //display the City and date in h5 tag appended to the div container
+            // $("#days").text("5 Days Forecast: ");
+
+
+            // //display the day 1 in a h6  tag appended to the div col-2
+            var d1El = $("<h6>");
+            d1El.text(date1);
+            $("#day2").append(d1El);
+
+
+            // //display the icon in an p tag appended to the div container
+            var icon = $("<p>");
+            icon.append(image);
+            $("#day2").append(icon);
+
+            //display the Temparature in a p  tag appended to the div col-2
+            var temp = $("<p>");
+            temp.text("Temp: " + temparature + " °F");
+            $("#day2").append(temp);
+
+            //display the Humidity in an p tag appended to the div container
+            var Humidity = $("<p>");
+            Humidity.text("Humidity: " + humidity + " %")
+            $("#day2").append(Humidity);
+            
+
+
+             // ##################### Third Day Forecast######################
+
+            //set weather condition variable
+            var weatherCondition = response.list[17].weather[0].main;
+
+            //create an image element to append the icons
+            var image = $("<img>");
+
+
+            var imageUrl = "http://openweathermap.org/img/wn/13d.png";
+
+            //Set conditional statement to display the weather icon during snow time 
+            if (weatherCondition !== "Snow") {
+
+                //Set conditional statement to display the weather icon during day time 
+                if (currentTime <= 17) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02d.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10d.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01d.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50d.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11d.png";
+                            break;
+
+                    }
+                } else if (currentTime >= 18) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02n.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10n.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01n.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50n.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11n.png";
+                            break;
+                    }
+
+                }
+                image.attr("src", imageUrl);
+            }
+
+            // //Convert the temparature into F
+            var tempF = (response.list[17].main.temp - 273.15) * 1.80 + 32;
+            //truncate it to 2 digits
+            var temparature = tempF.toFixed(2);
+            //Set humidity variable and content
+            var humidity = response.list[17].main.humidity;
+
+            //Set date variable and content 
+            var Date1 = response.list[17].dt_txt
+            date1 = moment(Date1).format('L');
+
+            //create another div to hold all the 5 days forcast
+             
+            $("#day3").attr("style", "color: red")
+            $("#day3").attr("style", "background: royalblue")
+            $("#day3").css("border", "0.5px solid gray ");
+            $("#day3").css("margin", "5px");
+            $("#day3").css("padding", "5px");
+            $("#day3").css("border-radius", "5px")
+
+
+             
+
+            // //display the day 1 in a h6  tag appended to the div col-2
+            var d1El = $("<h6>");
+            d1El.text(date1);
+            $("#day3").append(d1El);
+
+
+            // //display the icon in an p tag appended to the div container
+            var icon = $("<p>");
+            icon.append(image);
+            $("#day3").append(icon);
+
+            //display the Temparature in a p  tag appended to the div col-2
+            var temp = $("<p>");
+            temp.text("Temp: " + temparature + " °F");
+            $("#day3").append(temp);
+
+            //display the Humidity in an p tag appended to the div container
+            var Humidity = $("<p>");
+            Humidity.text("Humidity: " + humidity + " %")
+            $("#day3").append(Humidity);
+            
+
+          // ##################### Fourth Day Forecast######################
+
+            //set weather condition variable
+            var weatherCondition = response.list[25].weather[0].main;
+
+            //create an image element to append the icons
+            var image = $("<img>");
+
+
+            var imageUrl = "http://openweathermap.org/img/wn/13d.png";
+
+            //Set conditional statement to display the weather icon during snow time 
+            if (weatherCondition !== "Snow") {
+
+                //Set conditional statement to display the weather icon during day time 
+                if (currentTime <= 17) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02d.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10d.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01d.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50d.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11d.png";
+                            break;
+
+                    }
+                } else if (currentTime >= 18) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02n.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10n.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01n.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50n.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11n.png";
+                            break;
+                    }
+
+                }
+                image.attr("src", imageUrl);
+            }
+
+            // //Convert the temparature into F
+            var tempF = (response.list[25].main.temp - 273.15) * 1.80 + 32;
+            //truncate it to 2 digits
+            var temparature = tempF.toFixed(2);
+            //Set humidity variable and content
+            var humidity = response.list[25].main.humidity;
+
+            //Set date variable and content 
+            var Date1 = response.list[25].dt_txt
+            date1 = moment(Date1).format('L');
+
+            //create another div to hold all the 5 days forcast
+             
+            $("#day4").attr("style", "color: red")
+            $("#day4").attr("style", "background: royalblue")
+            $("#day4").css("border", "0.5px solid gray ");
+            $("#day4").css("margin", "5px");
+            $("#day4").css("padding", "5px");
+            $("#day4").css("border-radius", "5px")
+
+
+             
+
+            // //display the day 1 in a h6  tag appended to the div col-2
+            var d1El = $("<h6>");
+            d1El.text(date1);
+            $("#day4").append(d1El);
+
+
+            // //display the icon in an p tag appended to the div container
+            var icon = $("<p>");
+            icon.append(image);
+            $("#day4").append(icon);
+
+            //display the Temparature in a p  tag appended to the div col-2
+            var temp = $("<p>");
+            temp.text("Temp: " + temparature + " °F");
+            $("#day4").append(temp);
+
+            //display the Humidity in an p tag appended to the div container
+            var Humidity = $("<p>");
+            Humidity.text("Humidity: " + humidity + " %")
+            $("#day4").append(Humidity);
+            
+
+            // ##################### Fith Day Forecast######################
+
+            //set weather condition variable
+            var weatherCondition = response.list[33].weather[0].main;
+
+            //create an image element to append the icons
+            var image = $("<img>");
+
+
+            var imageUrl = "http://openweathermap.org/img/wn/13d.png";
+
+            //Set conditional statement to display the weather icon during snow time 
+            if (weatherCondition !== "Snow") {
+
+                //Set conditional statement to display the weather icon during day time 
+                if (currentTime <= 17) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02d.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10d.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01d.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50d.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11d.png";
+                            break;
+
+                    }
+                } else if (currentTime >= 18) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02n.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10n.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01n.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50n.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11n.png";
+                            break;
+                    }
+
+                }
+                image.attr("src", imageUrl);
+            }
+
+            // //Convert the temparature into F
+            var tempF = (response.list[33].main.temp - 273.15) * 1.80 + 32;
+            //truncate it to 2 digits
+            var temparature = tempF.toFixed(2);
+            //Set humidity variable and content
+            var humidity = response.list[33].main.humidity;
+
+            //Set date variable and content 
+            var Date1 = response.list[33].dt_txt
+            date1 = moment(Date1).format('L');
+
+            //create another div to hold all the 5 days forcast
+             
+            $("#day5").attr("style", "color: red")
+            $("#day5").attr("style", "background: royalblue")
+            $("#day5").css("border", "0.5px solid gray ");
+            $("#day5").css("margin", "5px");
+            $("#day5").css("padding", "5px");
+            $("#day5").css("border-radius", "5px")
+
+
+             
+
+            // //display the day 1 in a h6  tag appended to the div col-2
+            var d1El = $("<h6>");
+            d1El.text(date1);
+            $("#day5").append(d1El);
+
+
+            // //display the icon in an p tag appended to the div container
+            var icon = $("<p>");
+            icon.append(image);
+            $("#day5").append(icon);
+
+            //display the Temparature in a p  tag appended to the div col-2
+            var temp = $("<p>");
+            temp.text("Temp: " + temparature + " °F");
+            $("#day5").append(temp);
+
+            //display the Humidity in an p tag appended to the div container
+            var Humidity = $("<p>");
+            Humidity.text("Humidity: " + humidity + " %")
+            $("#day5").append(Humidity);
+            
+
+
+
+
 
         })
 }
