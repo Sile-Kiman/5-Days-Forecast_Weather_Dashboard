@@ -28,7 +28,7 @@ searchbtn.addEventListener("click", function (event) {
 
 
     //This if condition will display an error  message if the search field is empty and save the city to the local storage
-    if (searchVal === "") {
+    if (searchVal === "" || !lastCity || !cities) {
         $('#errorMsg').attr("style", "color:red")
         $('#errorMsg').text("Please enter a valid City name");
         return
@@ -72,7 +72,6 @@ function displayHistory(cities) {
         return;
 
     } else {
-        //or (var i=0; i<cities.length; i++){
         cities.forEach(function (city) {
             var tableRow = $("<tr>");
             tableRow.addClass("cityRow");
@@ -84,6 +83,7 @@ function displayHistory(cities) {
             $(".table").append(tableRow);
 
         })
+        //calling current weather function
         retrieveCurrentWeatherAPI(lastCity)
 
         //Displaying all Five days forecast in this functions
@@ -97,7 +97,6 @@ displayHistory(cities)
 //Jquery to call the displaySearch function when each one of the city name is clicked.
 $(document).on("click", ".savedCity", function (event) {
     event.preventDefault();
-    cityHistory = this.textContent;
     //clearing containers after every append. 
     currentWeather.innerHTML = "";
     dailyContainer1.innerHTML = "";
@@ -105,6 +104,8 @@ $(document).on("click", ".savedCity", function (event) {
     dailyContainer3.innerHTML = "";
     dailyContainer4.innerHTML = "";
     dailyContainer5.innerHTML = "";
+    //get the text of the city clicked
+    cityHistory = this.textContent;
     retrieveCurrentWeatherAPI(cityHistory);
     FiveDaysForecastAPI(cityHistory);
 
@@ -130,8 +131,9 @@ function retrieveCurrentWeatherAPI(searchVal) {
     $.ajax({
         url: queryURL,
         method: "GET"
+
+
     })
-        // Im storing all of the retrieved data inside of an object called "response"
         .then(function (response) {
 
             var weatherCondition = response.weather[0].main;
@@ -196,12 +198,10 @@ function retrieveCurrentWeatherAPI(searchVal) {
             var wind = response.wind.speed
             //Set Longitute of a searched city
             var Long = response.coord.lon
-            console.log("long: ", Long);
+             
             //Set Latitude of a searched city
             var Lat = response.coord.lat;
-            console.log("lat: ", Lat);
-
-
+            
             // Set  css attribute for the div that will hold all the appended  weather items   
             $(".currentForecast").css("border", "0.5px solid gray ");
             $(".currentForecast").css("margin", "5px");
@@ -212,7 +212,7 @@ function retrieveCurrentWeatherAPI(searchVal) {
             var cityEl = $("<h4>");
             cityEl.addClass("city");
             cityEl.attr("margin:10px")
-            cityEl.text(searchVal + "(" + date + ")");
+            cityEl.text(searchVal + " (" + date + ")");
             cityEl.append(image)
             //append all the city weather information to the div main container
             $(".currentForecast").append(cityEl)
@@ -238,7 +238,8 @@ function retrieveCurrentWeatherAPI(searchVal) {
             //append all the city weather information to the div main container
             $(".currentForecast").append(Wind)
 
-            retrieveUVInexAPI(Lat, Long)
+            retrieveUVInexAPI(Lat, Long);
+
 
         })
 
@@ -263,7 +264,7 @@ function retrieveUVInexAPI(Lat, Long) {
         .then(function (response) {
 
             var result = response;
-             
+
             var IndexValue = result.value;
             //display the UV-Index in an p tag appended to the div container
             var Index = $("<p>");
@@ -272,9 +273,14 @@ function retrieveUVInexAPI(Lat, Long) {
 
             //prepend all the city weather information to the div main container
             $(".currentForecast").append("UV Index:  ", Index);
-
+        
         })
 }
+
+
+
+
+
 
 //function retrieve UV-Index data from the weather API and populate on the page.  
 function FiveDaysForecastAPI(searchVal) {
@@ -296,7 +302,7 @@ function FiveDaysForecastAPI(searchVal) {
     })
         // Im storing all of the retrieved data inside of an object called "response"
         .then(function (response) {
-            
+
             //set weather condition variable
             var weatherCondition = response.list[3].weather[0].main;
 
@@ -360,18 +366,17 @@ function FiveDaysForecastAPI(searchVal) {
             var humidity = response.list[3].main.humidity;
 
             //Set date variable and content 
-            var Date1 = response.list[3].dt_txt
+            var Date1 = response.list[3].dt_txt;
             date1 = moment(Date1).format('L');
 
 
             //create another div to hold all the 5 days forcast
-
             $("#day1").attr("style", "color: red")
             $("#day1").attr("style", "background: royalblue")
             $("#day1").css("border", "0.5px solid gray ");
             $("#day1").css("margin", "5px");
             $("#day1").css("padding", "5px");
-            $("#day1").css("border-radius", "5px")
+            $("#day1").css("border-radius", "5px");
 
 
             //display the City and date in h5 tag appended to the div container
@@ -465,26 +470,17 @@ function FiveDaysForecastAPI(searchVal) {
             var humidity = response.list[10].main.humidity;
 
             //Set date variable and content 
-            var Date1 = response.list[10].dt_txt
+            var Date1 = response.list[10].dt_txt;
             date1 = moment(Date1).format('L');
-
-            //Create a new Div and set its attribute to append all the weather items   
-            ///var dailyHeader = $(".daily");
 
 
             //create another div to hold all the 5 days forcast
-            //var daysEl = $("#day1");
             $("#day2").attr("style", "color: red")
             $("#day2").attr("style", "background: royalblue")
             $("#day2").css("border", "0.5px solid gray ");
             $("#day2").css("margin", "5px");
             $("#day2").css("padding", "5px");
-            $("#day2").css("border-radius", "5px")
-
-
-            //display the City and date in h5 tag appended to the div container
-            // $("#days").text("5 Days Forecast: ");
-
+            $("#day2").css("border-radius", "5px");
 
             // //display the day 1 in a h6  tag appended to the div col-2
             var d1El = $("<h6>");
@@ -574,20 +570,16 @@ function FiveDaysForecastAPI(searchVal) {
             var humidity = response.list[17].main.humidity;
 
             //Set date variable and content 
-            var Date1 = response.list[17].dt_txt
+            var Date1 = response.list[17].dt_txt;
             date1 = moment(Date1).format('L');
 
             //create another div to hold all the 5 days forcast
-
             $("#day3").attr("style", "color: red")
             $("#day3").attr("style", "background: royalblue")
             $("#day3").css("border", "0.5px solid gray ");
             $("#day3").css("margin", "5px");
             $("#day3").css("padding", "5px");
             $("#day3").css("border-radius", "5px")
-
-
-
 
             // //display the day 1 in a h6  tag appended to the div col-2
             var d1El = $("<h6>");
@@ -607,7 +599,7 @@ function FiveDaysForecastAPI(searchVal) {
 
             //display the Humidity in an p tag appended to the div container
             var Humidity = $("<p>");
-            Humidity.text("Humidity: " + humidity + " %")
+            Humidity.text("Humidity: " + humidity + " %");
             $("#day3").append(Humidity);
 
 
@@ -680,16 +672,12 @@ function FiveDaysForecastAPI(searchVal) {
             date1 = moment(Date1).format('L');
 
             //create another div to hold all the 5 days forcast
-
             $("#day4").attr("style", "color: red")
             $("#day4").attr("style", "background: royalblue")
             $("#day4").css("border", "0.5px solid gray ");
             $("#day4").css("margin", "5px");
             $("#day4").css("padding", "5px");
-            $("#day4").css("border-radius", "5px")
-
-
-
+            $("#day4").css("border-radius", "5px");
 
             // //display the day 1 in a h6  tag appended to the div col-2
             var d1El = $("<h6>");
@@ -782,16 +770,12 @@ function FiveDaysForecastAPI(searchVal) {
             date1 = moment(Date1).format('L');
 
             //create another div to hold all the 5 days forcast
-
             $("#day5").attr("style", "color: red")
             $("#day5").attr("style", "background: royalblue")
             $("#day5").css("border", "0.5px solid gray ");
             $("#day5").css("margin", "5px");
             $("#day5").css("padding", "5px");
-            $("#day5").css("border-radius", "5px")
-
-
-
+            $("#day5").css("border-radius", "5px");
 
             // //display the day 1 in a h6  tag appended to the div col-2
             var d1El = $("<h6>");
@@ -813,10 +797,6 @@ function FiveDaysForecastAPI(searchVal) {
             var Humidity = $("<p>");
             Humidity.text("Humidity: " + humidity + " %")
             $("#day5").append(Humidity);
-
-
-
-
 
 
         })

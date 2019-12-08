@@ -6,15 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
-
-    <!-- <link rel="stylesheet" href="reset.css"> -->
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/weather.css">
-
-
 
 </head>
 
@@ -22,20 +17,18 @@
 
     <!---Nav bar to dislpay the Header page-->
     <nav class="navbar navbar-expand-lg bg-dark ">
-        <!-- <a class="navbar-brand main-header" href="#"> -->
         <h1 navbar-brand>Weather Dashboard</h1>
-        <!-- </a> -->
     </nav>
 
     <div class="container card">
         <div class="row">
             <div class="col-sm-4"><strong id="search">Search For A City:</strong>
-                <!-- <form> -->
+
                 <h5 id="errorMsg"></h5>
                 <input type="text" placeholder="Search.." id="city" value="">
                 <button type="text" placeholder="Search.." id="seacrh-city" value="" type="submit"><i
                         class="fa fa-search"></i></button>
-                <!-- </form> -->
+
                 <br><br>
 
                 <table class="table table-striped table-dark">
@@ -43,11 +36,7 @@
 
                 </table>
 
-                <div class=" history">
 
-
-
-                </div>
             </div>
             <div class="col-sm-8">
                 <div class=" row">
@@ -60,7 +49,7 @@
                 <div class=" row five-days">
                     <h5 id="days"></h5>
                     <div class="row wrapper">
-                       
+
 
                         <div class="col-2 " id="day1">
 
@@ -93,14 +82,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="historyFile.js"></script> -->
-    <!-- <script src="weather.js"></script> -->
-    <!-- <script src="historyFile.js"></script>   -->
-    <!-- <script src="Day1Forcast.js"></script>
-    <script src="Day2Forcast.js"></script>
-    <script src="Day3Forcast.js"></script>
-    <script src="Day4Forcast.js"></script>
-    <script src="Day5Forcast.js"></script> -->
     <script src="weather.js"></script>
 </body>
 
