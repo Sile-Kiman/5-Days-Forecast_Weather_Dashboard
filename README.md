@@ -30,6 +30,9 @@ I used the following sites for my  research  during this assignment:
 3-Classmates
 4-TA’s and the instructor 
 
+Deployed Link:
+https://sile-kiman.github.io/5-Days-Forecast_Weather_Dashboard/
+
 Test:
 1 -Verify the page’s  look and feel matches the wireframe provided for this assignment- (this maybe slightly different) 
 2- Check the other spec such as when you click on each button the appropriate actions are performed. 
