@@ -134,8 +134,12 @@ function retrieveCurrentWeatherAPI(searchVal) {
 
 
     })
-        .then(function (response) {
+    .then(function (response) {
 
+     if(!response) {
+        console.log('error')
+          
+     }    
             var weatherCondition = response.weather[0].main;
             //create an image element to append the icons
             var image = $("<img>");
