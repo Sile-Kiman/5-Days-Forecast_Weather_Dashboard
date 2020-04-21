@@ -16,11 +16,11 @@ How does this work:
 6- Clicking on each history search should open the weather content of that specific city. 
  
 Tool used to build this site.
-1-	Html 
-2-	CSS 
+1-	Html5 
+2-	CSS3
 3-  Bootstrap
 3-	JavaScript 
-4-  Jquery
+4-  jQuery
 5-  Moments.js
 
 Credit:
@@ -34,8 +34,8 @@ Deployed Link:
 https://sile-kiman.github.io/5-Days-Forecast_Weather_Dashboard/
 
 Test:
-1 -Verify the pages  look and feel matches the wireframe provided for this assignment- (this maybe slightly different) 
-2- Check the other spec such as when you click on each button the appropriate actions are performed. 
+1 -Verify the pages  look and feel matche the wireframe provided for this assignment- (this maybe slightly different) 
+2- Check the other specs such as when you click on each button the appropriate actions are performed. 
 3-Verify all the pages that were supposed to display are there. 
 
 Image of the Site:
