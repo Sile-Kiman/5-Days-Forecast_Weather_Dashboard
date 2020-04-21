@@ -4,7 +4,7 @@ Title: Weather Dashboard
        
 
 Usage/Description:
-This assignement  is to allow user to search for any city and get the current weather.  
+This assignment  is to allow user to search for any city and get the current weather.  
 
 How does this work:
 1- When user lands on the page, they will see a search field where they can enter a city within US. 
@@ -15,7 +15,7 @@ How does this work:
 5- When user refreshes the page all the saved cities should dispaly and  the last search display it's weather contents.
 6- Clicking on each history search should open the weather content of that specific city. 
  
-Tool used to build my portfolio site.
+Tool used to build this site.
 1-	Html 
 2-	CSS 
 3-  Bootstrap
@@ -34,7 +34,7 @@ Deployed Link:
 https://sile-kiman.github.io/5-Days-Forecast_Weather_Dashboard/
 
 Test:
-1 -Verify the page’s  look and feel matches the wireframe provided for this assignment- (this maybe slightly different) 
+1 -Verify the pages  look and feel matches the wireframe provided for this assignment- (this maybe slightly different) 
 2- Check the other spec such as when you click on each button the appropriate actions are performed. 
 3-Verify all the pages that were supposed to display are there. 
 
